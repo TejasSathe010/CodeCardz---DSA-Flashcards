@@ -1,0 +1,71 @@
+[{
+    "problem": "Find the Largest Element in an Array",
+    "category": "Array",
+    "difficulty": "Easy",
+    "intuition": "To find the largest element, iterate through the array while keeping track of the maximum value encountered.",
+    "time_complexity": "O(n) - Linear time complexity, where n is the number of elements in the array.",
+    "space_complexity": "O(1) - Constant space required for tracking the maximum element.",
+    "brute_force_solution": {
+      "description": "Traverse the entire array and compare each element with a temporary maximum value.",
+      "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint findLargest(vector<int>& arr) {\n sort(arr.begin(),arr.end()); \n return arr[arr.size()-1];   \n}\n\nint main() {\n    vector<int> arr = {10, 20, 4, 45, 99};\n    cout << \"Largest element is \" << findLargest(arr) << endl;\n    return 0;\n}"
+    },
+    "optimized_solution": {
+      "description": "Same approach, as only one traversal of the array is needed.",
+      "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint findLargest(vector<int>& arr) {\n    int maxElement = arr[0];\n    for (int i = 1; i < arr.size(); i++) {\n        if (arr[i] > maxElement) {\n            maxElement = arr[i];\n        }\n    }\n    return maxElement;\n}\n\nint main() {\n    vector<int> arr = {10, 20, 4, 45, 99};\n    cout << \"Largest element is \" << findLargest(arr) << endl;\n    return 0;\n}"
+    },
+    "key_points": [
+      "Finding the largest element in an array is a basic problem in many algorithms.",
+      "Use a single traversal through the array for optimal performance.",
+      "You only need to compare each element once to determine the largest."
+    ],
+    "common_mistakes": [
+      "Not initializing the maximum element properly.",
+      "Using nested loops or unnecessary comparisons."
+    ]
+  },
+  {
+    "problem": "Find Second Smallest and Second Largest Element in an Array",
+    "category": "Array",
+    "difficulty": "Medium",
+    "intuition": "The idea is to traverse the array and keep track of the smallest and largest elements, then find the second smallest and second largest by comparing other elements.",
+    "time_complexity": "O(n) - Linear time complexity for one traversal of the array.",
+    "space_complexity": "O(1) - Constant space required to store the smallest and largest elements.",
+    "brute_force_solution": {
+      "description": "Sort the array and pick the second smallest and second largest elements.",
+      "code": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nvoid findSecondSmallestAndLargest(vector<int>& arr) {\n    sort(arr.begin(), arr.end());\n    cout << \"Second Smallest: \" << arr[1] << endl;\n    cout << \"Second Largest: \" << arr[arr.size() - 2] << endl;\n}\n\nint main() {\n    vector<int> arr = {10, 20, 4, 45, 99};\n    findSecondSmallestAndLargest(arr);\n    return 0;\n}"
+    },
+    "optimized_solution": {
+      "description": "Use two variables to keep track of the smallest and largest elements as you iterate over the array once.",
+      "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nvoid findSecondSmallestAndLargest(vector<int>& arr) {\n    int smallest = INT_MAX, secondSmallest = INT_MAX;\n    int largest = INT_MIN, secondLargest = INT_MIN;\n    for (int i = 0; i < arr.size(); i++) {\n        if (arr[i] < smallest) {\n            secondSmallest = smallest;\n            smallest = arr[i];\n        } else if (arr[i] < secondSmallest && arr[i] != smallest) {\n            secondSmallest = arr[i];\n        }\n        if (arr[i] > largest) {\n            secondLargest = largest;\n            largest = arr[i];\n        } else if (arr[i] > secondLargest && arr[i] != largest) {\n            secondLargest = arr[i];\n        }\n    }\n    cout << \"Second Smallest: \" << secondSmallest << endl;\n    cout << \"Second Largest: \" << secondLargest << endl;\n}\n\nint main() {\n    vector<int> arr = {10, 20, 4, 45, 99};\n    findSecondSmallestAndLargest(arr);\n    return 0;\n}"
+    },
+    "key_points": [
+      "Sorting the array is a simple approach but not the most efficient.",
+      "The optimized solution reduces the need for sorting and works in a single traversal of the array."
+    ],
+    "common_mistakes": [
+      "Not handling edge cases where the array might have fewer than two distinct elements."
+    ]
+  },{
+    "problem": "Check if an Array is Sorted",
+    "category": "Array",
+    "difficulty": "Easy",
+    "intuition": "An array is sorted if each element is greater than or equal to the previous one (ascending order) or less than or equal to the previous one (descending order).",
+    "time_complexity": "O(n) - Linear time complexity for checking each element of the array.",
+    "space_complexity": "O(1) - Constant space required for traversal.",
+    "brute_force_solution": {
+      "description": "Compare each element with the next one in the array to check if the array is sorted.",
+      "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nbool isSorted(vector<int>& arr) {\n    for (int i = 0; i < arr.size() - 1; i++) {\n        if (arr[i] > arr[i + 1]) {\n            return false;\n        }\n    }\n    return true;\n}\n\nint main() {\n    vector<int> arr = {1, 2, 3, 4, 5};\n    if (isSorted(arr)) {\n        cout << \"Array is sorted\" << endl;\n    } else {\n        cout << \"Array is not sorted\" << endl;\n    }\n    return 0;\n}"
+    },
+    "optimized_solution": {
+      "description": "Use a flag to check if the array is sorted in ascending or descending order and then validate the entire array in a single pass.",
+      "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nbool isSorted(vector<int>& arr) {\n    bool ascending = true, descending = true;\n    for (int i = 0; i < arr.size() - 1; i++) {\n        if (arr[i] > arr[i + 1]) {\n            ascending = false;\n        }\n        if (arr[i] < arr[i + 1]) {\n            descending = false;\n        }\n    }\n    return ascending || descending;\n}\n\nint main() {\n    vector<int> arr = {5, 4, 3, 2, 1};\n    if (isSorted(arr)) {\n        cout << \"Array is sorted\" << endl;\n    } else {\n        cout << \"Array is not sorted\" << endl;\n    }\n    return 0;\n}"
+    },
+    "key_points": [
+      "If the array is sorted in any order (ascending or descending), it's considered sorted.",
+      "Use a flag to check both sorting orders simultaneously in the optimized solution."
+    ],
+    "common_mistakes": [
+      "Only checking for ascending order, ignoring descending order."
+    ]
+  }    
+  ]
