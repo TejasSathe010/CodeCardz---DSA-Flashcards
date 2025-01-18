@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import FlashcardList from './components/FlashcardList';
-import { FaBars } from 'react-icons/fa'; // Import Hamburger icon
+import { FaBars, FaRandom } from 'react-icons/fa'; // Import Hamburger and Shuffle icons
 
 const App = () => {
   const [selectedTopic, setSelectedTopic] = useState("Array");
   const [problemsData, setProblemsData] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false); // State to toggle sidebar
+  const [shuffledProblems, setShuffledProblems] = useState(null); // State to store shuffled problems
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const topicData = {
@@ -20,7 +21,19 @@ const App = () => {
     setProblemsData(topicData[selectedTopic]);
   }, [selectedTopic, topicData]);
 
+  useEffect(() => {
+    if (problemsData) {
+      setShuffledProblems([...problemsData]);
+    }
+  }, [problemsData]);
+
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+  // Function to shuffle flashcards
+  const shuffleCards = () => {
+    const shuffled = [...shuffledProblems].sort(() => Math.random() - 0.5);
+    setShuffledProblems(shuffled);
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
@@ -38,7 +51,7 @@ const App = () => {
               key={topic}
               onClick={() => {
                 setSelectedTopic(topic);
-                setSidebarOpen(false); 
+                setSidebarOpen(false);
               }}
               className={`cursor-pointer py-3 px-4 rounded-lg transition-all duration-200 ${
                 selectedTopic === topic
@@ -60,7 +73,7 @@ const App = () => {
       )}
 
       <div className="flex-1 p-8 bg-gray-50 relative">
-        <header className="flex justify-between items-center mb-4">
+        <header className="flex justify-between items-center mb-8">
           <button
             className={`p-3 bg-gray-800 rounded-full text-white hover:bg-gray-700 z-50 ${sidebarOpen && ' hidden'}`}
             onClick={toggleSidebar}
@@ -74,11 +87,18 @@ const App = () => {
               Learn Data Structures and Algorithms interactively
             </p>
           </div>
+
+          <button
+            onClick={shuffleCards} // Shuffle function on click
+            className="p-3 bg-gray-800 rounded-full text-white hover:bg-gray-700 z-50"
+          >
+            <FaRandom className="text-xl" />
+          </button>
         </header>
 
-        <div className="mt-0">
-          {problemsData ? (
-            <FlashcardList problems={problemsData} />
+        <div className="mt-6">
+          {shuffledProblems ? (
+            <FlashcardList problems={shuffledProblems} />
           ) : (
             <p className="text-gray-600 text-center">
               Select a topic to view flashcards.
