@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import FlashcardList from './components/FlashcardList';
-import { FaBars } from 'react-icons/fa';  // Import Hamburger icon
+import { FaBars } from 'react-icons/fa'; // Import Hamburger icon
 
 const App = () => {
   const [selectedTopic, setSelectedTopic] = useState("Array");
   const [problemsData, setProblemsData] = useState(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);  // State to toggle sidebar
+  const [sidebarOpen, setSidebarOpen] = useState(false); // State to toggle sidebar
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const topicData = {
     Array: require('./data/array_problems.json'),
-    // Stack: require('../data/stack_problems.json'),
+    Recursion: require('./data/recursion_problems.json'),
     // Queue: require('../data/queue_problems.json'),
     // Graph: require('../data/graph_problems.json'),
     // Tree: require('../data/tree_problems.json'),
@@ -23,21 +23,27 @@ const App = () => {
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
+    <div className="flex min-h-screen bg-gray-50 font-sans">
       <div
-        className={`w-1/4 bg-blue-800 text-white p-6 fixed h-full transition-transform duration-300 ease-in-out transform ${
+        className={`w-64 bg-white shadow-md fixed h-full transition-transform duration-300 ease-in-out transform ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } z-50`}
       >
-        <h2 className="text-2xl font-semibold mb-6">Topics</h2>
-        <ul>
+        <h2 className="text-3xl font-semibold text-gray-800 mb-6 p-6 border-b border-gray-200">
+          Topics
+        </h2>
+        <ul className="space-y-2 px-6">
           {Object.keys(topicData).map((topic) => (
             <li
               key={topic}
-              onClick={() => setSelectedTopic(topic)}
-              className={`cursor-pointer p-2 mb-2 rounded-md hover:bg-blue-700 ${
-                selectedTopic === topic ? 'bg-blue-600' : ''
+              onClick={() => {
+                setSelectedTopic(topic);
+                setSidebarOpen(false); 
+              }}
+              className={`cursor-pointer py-3 px-4 rounded-lg transition-all duration-200 ${
+                selectedTopic === topic
+                  ? 'bg-gray-800 text-white'
+                  : 'text-gray-800 hover:bg-gray-100'
               }`}
             >
               {topic}
@@ -46,32 +52,39 @@ const App = () => {
         </ul>
       </div>
 
-      {/* Overlay to close sidebar when clicked outside */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-50 z-40"
-          onClick={toggleSidebar}  // Close sidebar when clicked outside
+          className="fixed inset-0 bg-black opacity-30 z-40"
+          onClick={toggleSidebar} 
         ></div>
       )}
 
-      {/* Main Content Area */}
-      <div className="flex-1 ml-1/4 p-6 bg-gray-900 relative">
-        <header className="flex justify-between items-center text-white mb-6">
-          {/* Hamburger Icon */}
+      <div className="flex-1 p-8 bg-gray-50 relative">
+        <header className="flex justify-between items-center mb-4">
           <button
-            className="p-3 bg-blue-800 rounded-full hover:bg-blue-700"
+            className={`p-3 bg-gray-800 rounded-full text-white hover:bg-gray-700 z-50 ${sidebarOpen && ' hidden'}`}
             onClick={toggleSidebar}
           >
-            <FaBars className="text-white text-2xl" />
+            <FaBars className="text-xl" />
           </button>
 
-          <div className="text-center flex-1">
-            <h1 className="text-4xl">DSA Flashcards</h1>
-            <p className="mt-2">Learn Data Structures and Algorithms in an interactive way!</p>
+          <div className="flex-1 text-center">
+            <h1 className="text-4xl font-bold text-gray-800">DSA Flashcards</h1>
+            <p className="mt-2 text-gray-600 text-lg">
+              Learn Data Structures and Algorithms interactively
+            </p>
           </div>
         </header>
 
-        {problemsData && <FlashcardList problems={problemsData} />}
+        <div className="mt-0">
+          {problemsData ? (
+            <FlashcardList problems={problemsData} />
+          ) : (
+            <p className="text-gray-600 text-center">
+              Select a topic to view flashcards.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

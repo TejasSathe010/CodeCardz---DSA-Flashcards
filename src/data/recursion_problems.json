@@ -1,0 +1,126 @@
+[
+    {
+        "problem": "Implement pow(x, n) - x Raised to the Power n",
+        "category": "Mathematics",
+        "difficulty": "Medium",
+        "intuition": "To calculate x^n efficiently, use recursion with the concept of dividing the problem into halves. If n is even, square the result of x^(n/2). If n is odd, multiply x with x^(n-1).",
+        "time_complexity": "O(log n) - Reduces the problem size by half in each step.",
+        "space_complexity": "O(log n) - Recursive stack space.",
+        "brute_force_solution": {
+          "description": "Iteratively multiply x by itself n times. Handle negative powers by taking reciprocal after computing x^n.",
+          "code": "#include <iostream>\nusing namespace std;\n\ndouble myPow(double x, int n) {\n    double result = 1.0;\n    long long power = abs(n);\n    for (long long i = 0; i < power; i++) {\n        result *= x;\n    }\n    return (n < 0) ? 1.0 / result : result;\n}\n\nint main() {\n    cout << myPow(2.0, -3) << endl; // Output: 0.125\n    return 0;\n}"
+        },
+        "optimized_solution": {
+          "description": "Use recursion to calculate x^n in O(log n) time. Divide the problem by calculating x^(n/2) once and reusing it.",
+          "code": "#include <iostream>\nusing namespace std;\n\ndouble myPow(double x, int n) {\n    if (n == 0) return 1;\n    double half = myPow(x, n / 2);\n    if (n % 2 == 0) {\n        return half * half;\n    } else {\n        return (n > 0) ? half * half * x : (half * half) / x;\n    }\n}\n\nint main() {\n    cout << myPow(2.0, 10) << endl; // Output: 1024\n    return 0;\n}"
+        },
+        "key_points": [
+          "Reduce repeated computations by dividing the problem into halves.",
+          "Efficiently handle negative powers using the reciprocal."
+        ],
+        "common_mistakes": [
+          "Forgetting to handle negative exponents.",
+          "Not using double for floating-point calculations, leading to precision errors."
+        ]
+    },
+    {
+        "problem": "Power Set - Print all the Possible Subsequences of the String",
+        "category": "String",
+        "difficulty": "Medium",
+        "intuition": "The goal is to generate all possible subsequences of a string, which includes combinations of characters with or without maintaining continuity but with maintaining the order. The total combinations are 2^n for a string of length n.",
+        "time_complexity": "O(2^n) - Each character has two options (included or not) for all n characters.",
+        "space_complexity": "O(n) - Space required for storing a single subsequence during recursion.",
+        "brute_force_solution": {
+          "description": "Use recursion to generate all combinations by including or excluding each character.",
+          "code": "#include <iostream>\n#include <vector>\n#include <string>\nusing namespace std;\n\nvoid generateSubsequences(string str, string output, vector<string>& result, int index) {\n    if (index == str.size()) {\n        result.push_back(output);\n        return;\n    }\n    generateSubsequences(str, output, result, index + 1); // Exclude the current character\n    generateSubsequences(str, output + str[index], result, index + 1); // Include the current character\n}\n\nint main() {\n    string str = \"abc\";\n    vector<string> result;\n    generateSubsequences(str, \"\", result, 0);\n    for (auto& subseq : result) {\n        cout << subseq << endl;\n    }\n    return 0;\n}"
+        },
+        "optimized_solution": {
+          "description": "Use bit manipulation to generate all possible subsequences by iterating over numbers from 0 to (2^n - 1), where each bit represents the inclusion or exclusion of a character.",
+          "code": "#include <iostream>\n#include <vector>\n#include <string>\nusing namespace std;\n\nvoid generateSubsequences(string str) {\n    int n = str.size();\n    int total = 1 << n; // 2^n\n    for (int i = 0; i < total; i++) {\n        string subseq = \"\";\n        for (int j = 0; j < n; j++) {\n            if (i & (1 << j)) {\n                subseq += str[j];\n            }\n        }\n        cout << subseq << endl;\n    }\n}\n\nint main() {\n    string str = \"abc\";\n    generateSubsequences(str);\n    return 0;\n}"
+        },
+        "key_points": [
+          "Recursive approach uses include/exclude logic to generate subsequences.",
+          "Bit manipulation leverages binary representation to determine which characters to include in each subsequence.",
+          "The output will also include the empty subsequence."
+        ],
+        "common_mistakes": [
+          "Not handling the empty subsequence as a valid output.",
+          "Confusion with maintaining the order of characters in subsequences."
+        ]
+    },
+    {
+        "problem": "Combination Sum 1",
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "intuition": "Find all unique combinations of numbers in a given array that sum up to a target. Repeated elements can be used multiple times, but the combinations must be distinct.",
+        "time_complexity": "O(2^t * k) - Where t is the target sum, and k is the average length of combinations.",
+        "space_complexity": "O(k * x) - Where k is the average length of combinations, and x is the total number of combinations.",
+        "brute_force_solution": {
+          "description": "Generate all possible subsets of the array and check which subsets sum up to the target.",
+          "code": "// Brute force solution is not practical for this problem and not recommended due to inefficiency."
+        },
+        "optimized_solution": {
+          "description": "Use backtracking to build combinations while pruning paths that exceed the target sum.",
+          "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nvoid findCombinations(int index, int target, vector<int>& arr, vector<int>& current, vector<vector<int>>& result) {\n    if (target == 0) {\n        result.push_back(current);\n        return;\n    }\n    if (index >= arr.size() || target < 0) return;\n\n    current.push_back(arr[index]); // Include the current element\n    findCombinations(index, target - arr[index], arr, current, result);\n    current.pop_back(); // Backtrack\n\n    findCombinations(index + 1, target, arr, current, result); // Skip the current element\n}\n\nint main() {\n    vector<int> arr = {2, 3, 6, 7};\n    int target = 7;\n    vector<vector<int>> result;\n    vector<int> current;\n\n    findCombinations(0, target, arr, current, result);\n\n    for (auto& combination : result) {\n        for (int num : combination) {\n            cout << num << \" \";\n        }\n        cout << endl;\n    }\n    return 0;\n}"
+        },
+        "key_points": [
+          "Use backtracking to explore all possible combinations.",
+          "Avoid duplicate combinations by using the same element multiple times in one path.",
+          "Stop exploring paths once the target sum becomes negative."
+        ],
+        "common_mistakes": [
+          "Not handling cases where elements are repeated in combinations.",
+          "Failing to backtrack correctly, which can lead to incorrect results."
+        ]
+    },
+    {
+        "problem": "Combination Sum II - Find All Unique Combinations",
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "intuition": "The problem involves finding unique combinations of elements in an array that sum up to a target. Each element can be used only once in a combination, and duplicate combinations must be avoided.",
+        "time_complexity": "O(2^n * k) - Where n is the number of candidates, and k is the average size of combinations.",
+        "space_complexity": "O(k * x) - Where k is the size of a single combination, and x is the total number of combinations.",
+        "brute_force_solution": {
+          "description": "Generate all subsets, filter valid ones that sum to the target, and remove duplicates.",
+          "code": "// Brute force approach is inefficient and not commonly used for this problem."
+        },
+        "optimized_solution": {
+          "description": "Sort the array to handle duplicates easily, and use backtracking to explore combinations. Skip duplicate elements in the same recursive level.",
+          "code": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nvoid findCombinations(int index, int target, vector<int>& candidates, vector<int>& current, vector<vector<int>>& result) {\n    if (target == 0) {\n        result.push_back(current);\n        return;\n    }\n\n    for (int i = index; i < candidates.size(); i++) {\n        if (i > index && candidates[i] == candidates[i - 1]) continue; // Skip duplicates\n        if (candidates[i] > target) break;\n\n        current.push_back(candidates[i]);\n        findCombinations(i + 1, target - candidates[i], candidates, current, result);\n        current.pop_back(); // Backtrack\n    }\n}\n\nint main() {\n    vector<int> candidates = {10, 1, 2, 7, 6, 1, 5};\n    int target = 8;\n    vector<vector<int>> result;\n    vector<int> current;\n\n    sort(candidates.begin(), candidates.end());\n    findCombinations(0, target, candidates, current, result);\n\n    for (auto& combination : result) {\n        for (int num : combination) {\n            cout << num << \" \";\n        }\n        cout << endl;\n    }\n    return 0;\n}"
+        },
+        "key_points": [
+          "Sorting helps manage duplicates effectively by allowing you to skip adjacent elements in the same recursion level.",
+          "Backtracking is used to explore valid combinations while avoiding exceeding the target sum.",
+          "Each element can only be used once in a combination."
+        ],
+        "common_mistakes": [
+          "Not handling duplicates properly, leading to repeated combinations.",
+          "Forgetting to sort the array, which makes skipping duplicates impossible."
+        ]
+    },
+    {
+        "problem": "Subset Sum - Sum of All Subsets",
+        "category": "Recursion",
+        "difficulty": "Medium",
+        "intuition": "The problem involves finding the sum of all subsets of a given array. By exploring all subsets recursively, we can calculate the sum of each subset and aggregate the result.",
+        "time_complexity": "O(2^n) - Where n is the size of the array, as there are 2^n subsets.",
+        "space_complexity": "O(n) - Due to the recursive stack.",
+        "brute_force_solution": {
+          "description": "Generate all possible subsets, calculate their sums, and return the aggregate sum.",
+          "code": "// Brute force code not applicable as recursion simplifies this."
+        },
+        "optimized_solution": {
+          "description": "Use recursion to calculate all possible subset sums and store the results.",
+          "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nvoid subsetSum(int index, int currentSum, vector<int>& arr, vector<int>& result) {\n    if (index == arr.size()) {\n        result.push_back(currentSum);\n        return;\n    }\n    \n    // Include the current element in the subset\n    subsetSum(index + 1, currentSum + arr[index], arr, result);\n    \n    // Exclude the current element from the subset\n    subsetSum(index + 1, currentSum, arr, result);\n}\n\nint main() {\n    vector<int> arr = {1, 2, 3};\n    vector<int> result;\n\n    subsetSum(0, 0, arr, result);\n\n    for (int sum : result) {\n        cout << sum << \" \";\n    }\n    return 0;\n}"
+        },
+        "key_points": [
+          "Use recursion to explore all subsets systematically.",
+          "The sum of a subset is calculated by either including or excluding each element in the array.",
+          "Store each subset's sum for final aggregation."
+        ],
+        "common_mistakes": [
+          "Incorrect handling of the base case in recursion, leading to missing subsets.",
+          "Not accounting for empty subsets, which contribute a sum of 0."
+        ]
+    }                          
+]

@@ -1,49 +1,38 @@
 import React, { useState } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';  // Import react-icons
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Flashcard from './Flashcard';
 
 const FlashcardList = ({ problems }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextCard = () => {
-    if (currentIndex < problems.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      setCurrentIndex(0); // Loop back to the first card
-    }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % problems.length);
   };
 
   const prevCard = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    } else {
-      setCurrentIndex(problems.length - 1); // Loop to the last card
-    }
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + problems.length) % problems.length);
   };
 
   return (
-    <div className="relative p-6 bg-gray-900 min-h-screen">
-      {/* Left Arrow */}
+    <div className="relative p-4 min-h-screen flex items-center justify-center">
       <button
         onClick={prevCard}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-50"
+        className="fixed left-10 top-1/2 transform -translate-y-1/2 p-3 bg-white shadow-lg rounded-full hover:bg-gray-200 transition duration-300 z-50"
       >
-        <FaArrowLeft className="text-3xl" />
+        <FaArrowLeft className="text-gray-700 text-xl" />
       </button>
 
-      {/* Flashcard */}
       {problems.length > 0 && (
-        <div className="flex justify-center">
+        <div className="w-full max-w-4xl">
           <Flashcard {...problems[currentIndex]} />
         </div>
       )}
 
-      {/* Right Arrow */}
       <button
         onClick={nextCard}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-50"
+        className="fixed right-10 top-1/2 transform -translate-y-1/2 p-3 bg-white shadow-lg rounded-full hover:bg-gray-200 transition duration-300 z-50"
       >
-        <FaArrowRight className="text-3xl" />
+        <FaArrowRight className="text-gray-700 text-xl" />
       </button>
     </div>
   );
