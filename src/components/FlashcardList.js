@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Flashcard from './Flashcard';
+import { motion } from 'framer-motion';
 
 const FlashcardList = ({ problems }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,9 +24,16 @@ const FlashcardList = ({ problems }) => {
       </button>
 
       {problems.length > 0 && (
-        <div className="w-full max-w-4xl">
+        <motion.div
+          key={currentIndex}
+          initial={{ rotateY: 90, opacity: 0 }}
+          animate={{ rotateY: 0, opacity: 1 }}
+          exit={{ rotateY: -90, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-4xl"
+        >
           <Flashcard {...problems[currentIndex]} />
-        </div>
+        </motion.div>
       )}
 
       <button

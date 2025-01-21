@@ -27,7 +27,6 @@ const Flashcard = ({
       <p className="text-gray-700 text-base leading-relaxed mb-4"><strong>Time Complexity:</strong> {time_complexity}</p>
       <p className="text-gray-700 text-base leading-relaxed mb-4"><strong>Space Complexity:</strong> {space_complexity}</p>
 
-      {/* Key Points */}
       <div className="mb-6">
         <h3 className="text-lg font-medium text-gray-800 mb-3">Key Points</h3>
         <ul className="space-y-2">
@@ -39,7 +38,6 @@ const Flashcard = ({
         </ul>
       </div>
 
-      {/* Common Mistakes */}
       <div className="mb-6">
         <h3 className="text-lg font-medium text-gray-800 mb-3">Common Mistakes</h3>
         <ul className="space-y-2">
@@ -51,7 +49,6 @@ const Flashcard = ({
         </ul>
       </div>
 
-      {/* Show Solution Button */}
       <button
         onClick={() => setShowSolution(!showSolution)}
         className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full font-semibold shadow hover:bg-blue-600 transition duration-300"
@@ -59,7 +56,6 @@ const Flashcard = ({
         {showSolution ? 'Hide Solution' : 'Show Solution'}
       </button>
 
-      {/* Solution Display */}
       {showSolution && (
         <div className="mt-6">
           <div>

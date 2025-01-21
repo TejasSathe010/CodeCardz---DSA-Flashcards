@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import FlashcardList from './components/FlashcardList';
-import { FaBars, FaRandom } from 'react-icons/fa'; // Import Hamburger and Shuffle icons
+import { FaBars, FaRandom } from 'react-icons/fa'; 
+import { motion } from 'framer-motion';
 
 const App = () => {
   const [selectedTopic, setSelectedTopic] = useState("Array");
   const [problemsData, setProblemsData] = useState(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false); // State to toggle sidebar
-  const [shuffledProblems, setShuffledProblems] = useState(null); // State to store shuffled problems
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [shuffledProblems, setShuffledProblems] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false); 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const topicData = {
     Array: require('./data/array_problems.json'),
     Recursion: require('./data/recursion_problems.json'),
-    // Queue: require('../data/queue_problems.json'),
-    // Graph: require('../data/graph_problems.json'),
-    // Tree: require('../data/tree_problems.json'),
   };
 
   useEffect(() => {
@@ -29,11 +28,14 @@ const App = () => {
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  // Function to shuffle flashcards
   const shuffleCards = () => {
     const shuffled = [...shuffledProblems].sort(() => Math.random() - 0.5);
     setShuffledProblems(shuffled);
   };
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
@@ -72,7 +74,12 @@ const App = () => {
         ></div>
       )}
 
-      <div className="flex-1 p-8 bg-gray-50 relative">
+      <motion.div
+        className="flex-1 p-8 bg-gray-50 relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
         <header className="flex justify-between items-center mb-8">
           <button
             className={`p-3 bg-gray-800 rounded-full text-white hover:bg-gray-700 z-50 ${sidebarOpen && ' hidden'}`}
@@ -82,14 +89,19 @@ const App = () => {
           </button>
 
           <div className="flex-1 text-center">
-            <h1 className="text-4xl font-bold text-gray-800">DSA Flashcards</h1>
+            <img
+              src="/codeCardz-logo.svg"
+              alt="CodeCardz Logo"
+              className="w-12 h-12 inline-block mb-2"
+            />
+            <h1 className="text-4xl font-bold text-gray-800">CodeCardz</h1>
             <p className="mt-2 text-gray-600 text-lg">
               Learn Data Structures and Algorithms interactively
             </p>
           </div>
 
           <button
-            onClick={shuffleCards} // Shuffle function on click
+            onClick={shuffleCards}
             className="p-3 bg-gray-800 rounded-full text-white hover:bg-gray-700 z-50"
           >
             <FaRandom className="text-xl" />
@@ -105,7 +117,7 @@ const App = () => {
             </p>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
