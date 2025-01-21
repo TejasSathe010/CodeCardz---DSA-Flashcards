@@ -1,5 +1,5 @@
 
-# DSA Leetcode Flashcards - Website Link (https://codecardz.netlify.app/)
+# DSA Leetcode Flashcards - (https://codecardz.netlify.app/)
 
 This is a web application designed to help users practice and master Data Structures and Algorithms (DSA) problems through an interactive flashcard system. The flashcards cover a wide range of problems from Leetcode, allowing users to view problem descriptions, solutions, and optimized approaches. It also includes a **shuffle feature** to randomize the order of flashcards and a **Spaced Repetition Algorithm** (SRS) that is coming soon, to help users learn more effectively.
 
