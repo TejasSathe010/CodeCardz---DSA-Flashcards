@@ -8,7 +8,6 @@ const App = () => {
   const [problemsData, setProblemsData] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [shuffledProblems, setShuffledProblems] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false); 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const topicData = {
@@ -33,9 +32,6 @@ const App = () => {
     setShuffledProblems(shuffled);
   };
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   return (
     <div className="flex min-h-screen bg-gray-50 font-sans">
