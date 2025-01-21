@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# DSA Leetcode Flashcards
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a web application designed to help users practice and master Data Structures and Algorithms (DSA) problems through an interactive flashcard system. The flashcards cover a wide range of problems from Leetcode, allowing users to view problem descriptions, solutions, and optimized approaches. It also includes a **shuffle feature** to randomize the order of flashcards and a **Spaced Repetition Algorithm** (SRS) that is coming soon, to help users learn more effectively.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### 1. Flashcard Shuffle
+The app allows users to shuffle flashcards to randomize the order of problems. This is especially useful for reviewing concepts without following a strict sequence.
 
-### `npm start`
+- **Shuffle Button**: Clicking the shuffle button will re-arrange the order of the flashcards.
+  
+### 2. Spaced Repetition Algorithm (Coming Soon)
+A Spaced Repetition System (SRS) will be implemented to show flashcards at specific intervals based on how well the user remembers them.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Easy/Hard Marking**: Users will be able to mark flashcards as "Easy", "Medium", or "Hard", with hard cards being shown more frequently and easy cards being spaced out over longer intervals.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3. Interactive Flashcards
+The app displays flashcards that contain:
+- Problem description
+- Brute force solution with code
+- Optimized solution with code
 
-### `npm test`
+You can flip through the flashcards to view both the problem and the solution.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 4. Responsive Design
+The app is fully responsive and works well on both desktop and mobile devices.
 
-### `npm run build`
+### 5. Card Flip Animation
+Each flashcard uses a smooth flip animation, making it visually engaging as you navigate between the problem and its solution.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run the project locally, follow these steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/dsa-leetcode-flashcards.git
+   cd dsa-leetcode-flashcards
+Install dependencies: If you're using npm:
 
-### `npm run eject`
+bash
+Copy
+Edit
+npm install
+Run the development server:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+bash
+Copy
+Edit
+npm start
+This will start the app at http://localhost:3000 by default.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Usage
+Upon opening the app, you'll see a list of topics (e.g., Array, Recursion) that you can select.
+Once a topic is selected, the flashcards for that topic will be displayed.
+You can shuffle the order of the flashcards by clicking the Shuffle button.
+The cards can be flipped to reveal the problem description, code solutions, and explanations.
+Coming Soon: The Spaced Repetition Algorithm (SRS) will be added in future updates to help you retain the information over time.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Contributing
+If you want to contribute to the project, follow these steps:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Fork the repository.
+Create a new branch for your feature or bug fix:
+bash
+Copy
+Edit
+git checkout -b feature/my-feature
+Commit your changes:
+bash
+Copy
+Edit
+git commit -am 'Add new feature'
+Push to your branch:
+bash
+Copy
+Edit
+git push origin feature/my-feature
+Create a pull request to merge your changes into the main repository.
+Roadmap
+Spaced Repetition System (SRS): Improve learning effectiveness by showing cards based on user recall.
+User Feedback: Allow users to rate the difficulty of the card to improve the spaced repetition algorithm.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Acknowledgments
+Thanks to Framer Motion for providing a smooth and powerful animation library.
+Special thanks to Leetcode for providing the DSA problems that help users practice algorithms and data structures.
