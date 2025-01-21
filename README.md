@@ -1,4 +1,3 @@
-![Logo](https://github.com/TejasSathe010/CodeCardz---DSA-Flashcards/blob/main/codeCardz-logo.svg)
 
 # DSA Leetcode Flashcards - Website Link (http://localhost:3000/)
 
@@ -49,12 +48,17 @@ This will start the app at http://localhost:3000 by default.
 
 
 ### Roadmap
-Spaced Repetition System (SRS): Improve learning effectiveness by showing cards based on user recall.
-User Feedback: Allow users to rate the difficulty of the card to improve the spaced repetition algorithm.
-License
+#### 1. Spaced Repetition System (SRS): Improve learning effectiveness by showing cards based on user recall.
+#### 2. User Feedback: Allow users to rate the difficulty of the card to improve the spaced repetition algorithm.
+
+### License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ### Acknowledgments
 Thanks to Framer Motion for providing a smooth and powerful animation library.
 Special thanks to Leetcode for providing the DSA problems that help users practice algorithms and data structures.
+
+
+![Logo](https://github.com/TejasSathe010/CodeCardz---DSA-Flashcards/blob/main/codeCardz-logo.svg)
+
 
